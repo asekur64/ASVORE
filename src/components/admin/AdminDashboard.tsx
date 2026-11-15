@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Product, Category, OrderStatus, PaymentStatus, Coupon } from '../../types';
+import { IMAGES } from '../../assets/images';
 import { 
   BarChart3, 
   Package, 
@@ -58,7 +59,7 @@ export const AdminDashboard: React.FC = () => {
   const [prodPrice, setProdPrice] = useState(2500);
   const [prodSalePrice, setProdSalePrice] = useState<number | undefined>(undefined);
   const [prodStock, setProdStock] = useState(15);
-  const [prodImage, setProdImage] = useState('/src/assets/images/category_panjabi_traditional_1794457622007.jpg');
+  const [prodImage, setProdImage] = useState(IMAGES.panjabiTraditional);
   const [prodDescEn, setProdDescEn] = useState('');
   const [prodDescBn, setProdDescBn] = useState('');
   const [prodSizes, setProdSizes] = useState('M, L, XL, XXL');
@@ -87,7 +88,7 @@ export const AdminDashboard: React.FC = () => {
     setProdPrice(2500);
     setProdSalePrice(undefined);
     setProdStock(15);
-    setProdImage('/src/assets/images/category_panjabi_traditional_1794457622007.jpg');
+    setProdImage(IMAGES.panjabiTraditional);
     setProdDescEn('');
     setProdDescBn('');
     setProdSizes('M, L, XL, XXL');

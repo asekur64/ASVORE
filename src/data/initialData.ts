@@ -1,4 +1,5 @@
 import { Product, Coupon, CustomerReview, SiteSettings, Order } from '../types';
+import { IMAGES } from '../assets/images';
 
 export const INITIAL_SETTINGS: SiteSettings = {
   announcementText: {
@@ -38,8 +39,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     },
     category: 'Panjabis',
     images: [
-      '/src/assets/images/category_panjabi_traditional_1794457622007.jpg',
-      '/src/assets/images/hero_fashion_editorial_1794457621413.jpg',
+      IMAGES.panjabiTraditional,
+      IMAGES.heroFashionEditorial,
     ],
     description: {
       en: 'Crafted from premium blended semi-silk, this bespoke ivory Panjabi features intricate hand-guided tone-on-tone threadwork along the band collar and placket. Designed for festivals, weddings, and formal evening gatherings.',
@@ -95,7 +96,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     },
     category: 'Watches',
     images: [
-      '/src/assets/images/category_mens_watch_1794457622556.jpg',
+      IMAGES.mensWatch,
     ],
     description: {
       en: 'Precision Japanese quartz movement housed in a surgical-grade 316L brushed stainless steel case. Features a matte obsidian dial with dual sub-dials, scratch-resistant sapphire crystal glass, and a solid link steel bracelet.',
@@ -150,7 +151,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     },
     category: 'Perfumes',
     images: [
-      '/src/assets/images/product_perfume_luxury_1794457622809.jpg',
+      IMAGES.perfumeLuxury,
     ],
     description: {
       en: 'An intoxicating masculine statement opening with spicy cardamom and Calabrian bergamot, descending into smoky Cambodian agarwood, roasted tonka bean, and warm ambergris. Exceptional sillage and 14+ hours longevity.',
@@ -200,7 +201,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     },
     category: 'Shirts',
     images: [
-      '/src/assets/images/category_mens_shirt_1794460199747.jpg',
+      IMAGES.mensShirt,
     ],
     description: {
       en: 'Woven with 100% two-ply Egyptian long-staple cotton, this shirt features a crisp semi-spread collar, mother-of-pearl buttons, and wrinkle-resistant basket-weave finish. Perfect for business boardrooms and smart evening dinners.',
@@ -254,7 +255,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     },
     category: 'T-Shirts',
     images: [
-      '/src/assets/images/category_mens_tshirt_1794460199784.jpg',
+      IMAGES.mensTshirt,
     ],
     description: {
       en: '260 GSM custom-knit American Supima cotton. Offers an elevated drape, structured neckline that never sags, and an ultra-soft peached texture. Minimal tonal embroidered ASVORE monogram on hem.',
@@ -307,7 +308,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     },
     category: 'Trousers',
     images: [
-      '/src/assets/images/category_mens_trouser_1794460201014.jpg',
+      IMAGES.mensTrouser,
     ],
     description: {
       en: 'A revival of classical sartorial craftsmanship. High-rise silhouette with adjustable side-buckles (Gurkha waistband), double inward pleats, and a clean tapered hem. Woven in breathable wool-touch stretch gabardine.',
@@ -359,7 +360,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     },
     category: 'Belts',
     images: [
-      '/src/assets/images/category_leather_belt_1794460201950.jpg',
+      IMAGES.leatherBelt,
     ],
     description: {
       en: 'Dual-tone reversible belt crafted from 100% full-grain vegetable-tanned leather. Features a rotating brushed titanium buckle allowing effortless switching between Classic Black and Warm Cognac Brown.',
@@ -408,7 +409,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     },
     category: 'Wallets',
     images: [
-      '/src/assets/images/category_leather_wallet_1794460202382.jpg',
+      IMAGES.leatherWallet,
     ],
     description: {
       en: 'Ultra-thin profile engineered to eliminate pocket bulge. Holds up to 10 cards and flat currency notes with certified RFID-blocking inner lining to protect against electronic skimming.',
@@ -457,7 +458,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     },
     category: 'Sunglasses',
     images: [
-      '/src/assets/images/category_mens_sunglasses_1794460203074.jpg',
+      IMAGES.mensSunglasses,
     ],
     description: {
       en: 'Re-engineered aviator silhouette handcrafted from Mazzucchelli Italian cellulose acetate. Features TAC polarized lenses with 100% UV400 ultraviolet protection and reinforced 5-barrel hinges.',
@@ -601,7 +602,7 @@ export const INITIAL_ORDERS: Order[] = [
           bn: 'অ্যারিস্টোক্র্যাট এমব্রয়ডারি সেমি-সিল্ক পাঞ্জাবি',
         },
         category: 'Panjabis',
-        image: '/src/assets/images/category_panjabi_traditional_1794457622007.jpg',
+        image: IMAGES.panjabiTraditional,
         price: 2890,
         size: 'L (42)',
         color: 'Warm Ivory',
@@ -646,7 +647,7 @@ export const INITIAL_ORDERS: Order[] = [
           bn: 'অ্যাসভোর নোয়ার উদ অ্যান্ড অ্যাম্বার পারফিউম (১০০ মি.লি.)',
         },
         category: 'Perfumes',
-        image: '/src/assets/images/product_perfume_luxury_1794457622809.jpg',
+        image: IMAGES.perfumeLuxury,
         price: 2950,
         quantity: 1,
         maxStock: 25,

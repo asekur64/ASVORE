@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { MapPin, Phone, Mail, MessageSquare, ShieldCheck, Truck, RefreshCw, Send, Check } from 'lucide-react';
+import { IMAGES } from '../../assets/images';
 
 export const AboutPage: React.FC = () => {
   const { t, settings, language, setActiveView } = useApp();
@@ -24,7 +25,7 @@ export const AboutPage: React.FC = () => {
         {/* Editorial Photo */}
         <div className="aspect-[16/9] rounded-lg overflow-hidden shadow-lg border border-stone-200 mb-12">
           <img
-            src="/src/assets/images/hero_fashion_editorial_1794457621413.jpg"
+            src={IMAGES.heroFashionEditorial}
             alt="ASVORE Atelier Lookbook"
             className="w-full h-full object-cover object-center"
             referrerPolicy="no-referrer"

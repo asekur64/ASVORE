@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { ArrowUpRight, ShieldCheck, Truck, RefreshCw } from 'lucide-react';
+import { IMAGES } from '../../assets/images';
 
 export const Hero: React.FC = () => {
   const { t, setActiveView, setSelectedCategory, settings, language } = useApp();
@@ -77,7 +78,7 @@ export const Hero: React.FC = () => {
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-[4/5] sm:aspect-[3/4] rounded-lg overflow-hidden shadow-2xl bg-stone-200 border border-stone-200/80">
               <img
-                src="/src/assets/images/hero_fashion_editorial_1794457621413.jpg"
+                src={IMAGES.heroFashionEditorial}
                 alt="ASVORE Men's Luxury Lookbook Collection"
                 className="w-full h-full object-cover object-center transform hover:scale-[1.02] transition-transform duration-700"
                 referrerPolicy="no-referrer"

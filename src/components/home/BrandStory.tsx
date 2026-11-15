@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { ArrowRight, Check } from 'lucide-react';
+import { IMAGES } from '../../assets/images';
 
 export const BrandStory: React.FC = () => {
   const { t, setActiveView } = useApp();
@@ -14,7 +15,7 @@ export const BrandStory: React.FC = () => {
           <div className="lg:col-span-5 relative order-2 lg:order-1">
             <div className="aspect-[4/5] rounded overflow-hidden shadow-xl bg-stone-200 border border-stone-200">
               <img
-                src="/src/assets/images/category_panjabi_traditional_1794457622007.jpg"
+                src={IMAGES.panjabiTraditional}
                 alt="ASVORE Craftsmanship"
                 className="w-full h-full object-cover object-center"
                 referrerPolicy="no-referrer"

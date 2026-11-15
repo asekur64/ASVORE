@@ -22,6 +22,7 @@ import {
   INITIAL_REVIEWS, 
   INITIAL_ORDERS 
 } from '../data/initialData';
+import { resolveImageUrl } from '../assets/images';
 
 export type ActiveView = 
   | 'home' 
@@ -131,18 +132,47 @@ interface AppContextType {
   dismissToast: (id: string) => void;
 }
 
+const safeStorageGet = (key: string): string | null => {
+  try {
+    return typeof window !== 'undefined' ? window.localStorage.getItem(key) : null;
+  } catch {
+    return null;
+  }
+};
+
+const safeStorageSet = (key: string, value: string): void => {
+  try {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(key, value);
+    }
+  } catch {
+    // Ignore storage quota / security restrictions
+  }
+};
+
+const safeStorageRemove = (key: string): void => {
+  try {
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem(key);
+    }
+  } catch {
+    // Ignore storage restrictions
+  }
+};
+
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // 1. Language state
   const [language, setLanguage] = useState<Language>(() => {
-    return (localStorage.getItem('asvore_lang') as Language) || 'en';
+    const saved = safeStorageGet('asvore_lang');
+    return saved === 'bn' ? 'bn' : 'en';
   });
 
   const toggleLanguage = () => {
     setLanguage(prev => {
       const next = prev === 'en' ? 'bn' : 'en';
-      localStorage.setItem('asvore_lang', next);
+      safeStorageSet('asvore_lang', next);
       return next;
     });
   };
@@ -183,7 +213,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isAdminAuthOpen, setIsAdminAuthOpen] = useState(false);
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => {
-    return localStorage.getItem('asvore_admin_auth') === 'true';
+    return safeStorageGet('asvore_admin_auth') === 'true';
   });
   const [isFirebaseStatusModalOpen, setIsFirebaseStatusModalOpen] = useState(false);
 
@@ -204,7 +234,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
               isDemo: true,
             };
           }
-          return item;
+          return {
+            ...item,
+            images: (item.images || []).map(resolveImageUrl),
+          };
         });
         return updated;
       }
@@ -215,7 +248,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   });
 
   useEffect(() => {
-    localStorage.setItem('asvore_products', JSON.stringify(products));
+    safeStorageSet('asvore_products', JSON.stringify(products));
   }, [products]);
 
   const addProduct = (prodData: Omit<Product, 'id' | 'createdAt'>) => {
@@ -246,14 +279,16 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [cart, setCart] = useState<CartItem[]>(() => {
     try {
       const saved = localStorage.getItem('asvore_cart');
-      return saved ? JSON.parse(saved) : [];
+      if (!saved) return [];
+      const parsed: CartItem[] = JSON.parse(saved);
+      return parsed.map(item => ({ ...item, image: resolveImageUrl(item.image) }));
     } catch {
       return [];
     }
   });
 
   useEffect(() => {
-    localStorage.setItem('asvore_cart', JSON.stringify(cart));
+    safeStorageSet('asvore_cart', JSON.stringify(cart));
   }, [cart]);
 
   const addToCart = (product: Product, size?: string, color?: string, quantity = 1) => {
@@ -336,7 +371,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   });
 
   useEffect(() => {
-    localStorage.setItem('asvore_coupons', JSON.stringify(coupons));
+    safeStorageSet('asvore_coupons', JSON.stringify(coupons));
   }, [coupons]);
 
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
@@ -409,7 +444,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   });
 
   useEffect(() => {
-    localStorage.setItem('asvore_wishlist', JSON.stringify(wishlist));
+    safeStorageSet('asvore_wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
 
   const toggleWishlist = (productId: string) => {
@@ -431,20 +466,25 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [orders, setOrders] = useState<Order[]>(() => {
     try {
       const saved = localStorage.getItem('asvore_orders');
-      return saved ? JSON.parse(saved) : INITIAL_ORDERS;
+      if (!saved) return INITIAL_ORDERS;
+      const parsed: Order[] = JSON.parse(saved);
+      return parsed.map(order => ({
+        ...order,
+        items: (order.items || []).map(item => ({ ...item, image: resolveImageUrl(item.image) })),
+      }));
     } catch {
       return INITIAL_ORDERS;
     }
   });
 
   useEffect(() => {
-    localStorage.setItem('asvore_orders', JSON.stringify(orders));
+    safeStorageSet('asvore_orders', JSON.stringify(orders));
   }, [orders]);
 
   // 10. Settings
   const [settings, setSettings] = useState<SiteSettings>(() => {
     try {
-      const saved = localStorage.getItem('asvore_settings');
+      const saved = safeStorageGet('asvore_settings');
       return saved ? JSON.parse(saved) : INITIAL_SETTINGS;
     } catch {
       return INITIAL_SETTINGS;
@@ -452,7 +492,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   });
 
   useEffect(() => {
-    localStorage.setItem('asvore_settings', JSON.stringify(settings));
+    safeStorageSet('asvore_settings', JSON.stringify(settings));
   }, [settings]);
 
   const updateSettings = (updates: Partial<SiteSettings>) => {
@@ -487,13 +527,13 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       ]
     };
     setCurrentUser(user);
-    localStorage.setItem('asvore_user', JSON.stringify(user));
+    safeStorageSet('asvore_user', JSON.stringify(user));
     notify('Logged in successfully', 'success');
   };
 
   const logoutUser = () => {
     setCurrentUser(null);
-    localStorage.removeItem('asvore_user');
+    safeStorageRemove('asvore_user');
     notify('Logged out', 'info');
   };
 
@@ -501,7 +541,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     if (!currentUser) return;
     const updated = { ...currentUser, ...updates };
     setCurrentUser(updated);
-    localStorage.setItem('asvore_user', JSON.stringify(updated));
+    safeStorageSet('asvore_user', JSON.stringify(updated));
     notify('Profile updated', 'success');
   };
 
@@ -618,7 +658,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const loginAdmin = (pin: string): boolean => {
     if (pin === '1234' || pin === 'asvore2026') {
       setIsAdminAuthenticated(true);
-      localStorage.setItem('asvore_admin_auth', 'true');
+      safeStorageSet('asvore_admin_auth', 'true');
       notify('Admin access granted', 'success');
       return true;
     }
@@ -628,7 +668,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const logoutAdmin = () => {
     setIsAdminAuthenticated(false);
-    localStorage.removeItem('asvore_admin_auth');
+    safeStorageRemove('asvore_admin_auth');
     notify('Logged out from Admin Dashboard', 'info');
   };
 

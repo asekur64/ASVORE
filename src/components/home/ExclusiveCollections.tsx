@@ -2,6 +2,7 @@ import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { ArrowUpRight } from 'lucide-react';
 import { Category } from '../../types';
+import { IMAGES } from '../../assets/images';
 
 export const ExclusiveCollections: React.FC = () => {
   const { setSelectedCategory, setActiveView } = useApp();
@@ -12,7 +13,7 @@ export const ExclusiveCollections: React.FC = () => {
       title: 'Modern Sartorial Tailoring',
       subtitle: 'Sharply cut Gurkha trousers, Royal Oxford shirts, and Italian leather dress belts.',
       category: 'Trousers' as Category,
-      image: '/src/assets/images/category_mens_trouser_1794460201014.jpg',
+      image: IMAGES.mensTrouser,
       tag: 'COLLECTION 01',
     },
     {
@@ -20,7 +21,7 @@ export const ExclusiveCollections: React.FC = () => {
       title: 'Traditional Elegance & Panjabis',
       subtitle: 'Bespoke semi-silk and combed cotton Panjabis with handcrafted collar embroidery.',
       category: 'Panjabis' as Category,
-      image: '/src/assets/images/category_panjabi_traditional_1794457622007.jpg',
+      image: IMAGES.panjabiTraditional,
       tag: 'COLLECTION 02',
     },
     {
@@ -28,7 +29,7 @@ export const ExclusiveCollections: React.FC = () => {
       title: 'The Horology & Leather Edit',
       subtitle: 'Brushed steel chronographs, vegetable-tanned wallets, and polarized acetate eyewear.',
       category: 'Watches' as Category,
-      image: '/src/assets/images/category_mens_watch_1794457622556.jpg',
+      image: IMAGES.mensWatch,
       tag: 'COLLECTION 03',
     },
     {
@@ -36,7 +37,7 @@ export const ExclusiveCollections: React.FC = () => {
       title: 'Haute Parfumerie Privée',
       subtitle: 'Smoky agarwood, French bergamot, and rich ambergris formulated for lasting sillage.',
       category: 'Perfumes' as Category,
-      image: '/src/assets/images/product_perfume_luxury_1794457622809.jpg',
+      image: IMAGES.perfumeLuxury,
       tag: 'COLLECTION 04',
     },
   ];

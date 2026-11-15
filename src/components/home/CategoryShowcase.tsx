@@ -2,6 +2,7 @@ import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { Category } from '../../types';
 import { ArrowRight } from 'lucide-react';
+import { IMAGES } from '../../assets/images';
 
 interface CategoryItem {
   id: Category;
@@ -15,55 +16,55 @@ const CATEGORIES_DATA: CategoryItem[] = [
     id: 'Panjabis',
     title: { en: 'Panjabis', bn: 'পাঞ্জাবি' },
     subtitle: { en: 'Handcrafted semi-silk & cotton traditional luxury', bn: 'হ্যান্ডক্রাফটেড সেমি-সিল্ক ও কটন ঐতিহ্যবাহী পোশাক' },
-    image: '/src/assets/images/category_panjabi_traditional_1794457622007.jpg',
+    image: IMAGES.panjabiTraditional,
   },
   {
     id: 'Watches',
     title: { en: 'Watches', bn: 'ঘড়ি' },
     subtitle: { en: 'Precision steel chronographs and minimal timepieces', bn: 'প্রেসিশন স্টিল ক্রোনোগ্রাফ এবং এলিগেন্ট ঘড়ি' },
-    image: '/src/assets/images/category_mens_watch_1794457622556.jpg',
+    image: IMAGES.mensWatch,
   },
   {
     id: 'Perfumes',
     title: { en: 'Perfumes', bn: 'পারফিউম' },
     subtitle: { en: 'Rich oriental ouds, amber, and French formulations', bn: 'লং-লাস্টিং প্রাচ্যীয় উদ, অ্যাম্বার ও ফরাসি সুরভি' },
-    image: '/src/assets/images/product_perfume_luxury_1794457622809.jpg',
+    image: IMAGES.perfumeLuxury,
   },
   {
     id: 'Shirts',
     title: { en: 'Shirts', bn: 'শার্ট' },
     subtitle: { en: 'Egyptian cotton pinpoint oxfords & resort linens', bn: 'ইজিপশিয়ান কটন ও প্রিমিয়াম লিনেন শার্ট' },
-    image: '/src/assets/images/category_mens_shirt_1794460199747.jpg',
+    image: IMAGES.mensShirt,
   },
   {
     id: 'T-Shirts',
     title: { en: 'T-Shirts', bn: 'টি-শার্ট' },
     subtitle: { en: '260 GSM heavy Supima cotton minimalist tees', bn: '২৬০ জিএসএম হেভিওয়েট সুপিমা কটন' },
-    image: '/src/assets/images/category_mens_tshirt_1794460199784.jpg',
+    image: IMAGES.mensTshirt,
   },
   {
     id: 'Trousers',
     title: { en: 'Trousers', bn: 'ট্রাউজার' },
     subtitle: { en: 'High-rise Gurkha & tailored gabardine trousers', bn: 'গুর্খা বেল্টলেস ও টেইলরড প্লিটেড ট্রাউজার' },
-    image: '/src/assets/images/category_mens_trouser_1794460201014.jpg',
+    image: IMAGES.mensTrouser,
   },
   {
     id: 'Belts',
     title: { en: 'Belts', bn: 'বেল্ট' },
     subtitle: { en: 'Vegetable-tanned full-grain reversible leather', bn: 'ফুল-গ্রেইন জেনুইন রিভার্সিবল লেদার' },
-    image: '/src/assets/images/category_leather_belt_1794460201950.jpg',
+    image: IMAGES.leatherBelt,
   },
   {
     id: 'Wallets',
     title: { en: 'Wallets', bn: 'ওয়ালেট' },
     subtitle: { en: 'Ultra-slim RFID-shielded bifold cardholders', bn: 'আরএফআইডি প্রটেক্টেড স্লিম লেদার ওয়ালেট' },
-    image: '/src/assets/images/category_leather_wallet_1794460202382.jpg',
+    image: IMAGES.leatherWallet,
   },
   {
     id: 'Sunglasses',
     title: { en: 'Sunglasses', bn: 'সানগ্লাস' },
     subtitle: { en: 'Cellulose acetate polarized UV400 frames', bn: 'পোলারাইজড ইউভি৪০০ সেলুলোজ ফ্রেম' },
-    image: '/src/assets/images/category_mens_sunglasses_1794460203074.jpg',
+    image: IMAGES.mensSunglasses,
   },
 ];
 

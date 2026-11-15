@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { AnnouncementBar } from './components/layout/AnnouncementBar';
 import { Header } from './components/layout/Header';
@@ -26,6 +26,51 @@ import { AuthModal } from './components/auth/AuthModal';
 import { AdminAuthModal } from './components/admin/AdminAuthModal';
 import { ToastContainer } from './components/common/ToastContainer';
 import { WhatsAppFloating } from './components/common/WhatsAppFloating';
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends Component<{ children: ReactNode }, ErrorBoundaryState> {
+  state: ErrorBoundaryState = { hasError: false };
+
+  static getDerivedStateFromError(): ErrorBoundaryState {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error('ASVORE Runtime Error:', error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-[#FBF9F5] text-[#171717] flex items-center justify-center p-6 text-center">
+          <div className="max-w-md bg-white p-8 rounded-lg border border-[#E8E4DA] shadow-sm space-y-4">
+            <h1 className="font-serif-luxury text-2xl font-bold">ASVORE</h1>
+            <p className="text-sm text-stone-600">
+              Something went wrong while loading the storefront. Please reset cached session data and reload.
+            </p>
+            <button
+              onClick={() => {
+                try {
+                  localStorage.clear();
+                } catch {
+                  // ignore
+                }
+                window.location.reload();
+              }}
+              className="px-6 py-2.5 bg-[#171717] text-white text-xs uppercase tracking-widest font-semibold rounded"
+            >
+              Reset & Reload Storefront
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 const MainLayout: React.FC = () => {
   const { activeView, isAdminAuthenticated } = useApp();
@@ -91,8 +136,10 @@ const MainLayout: React.FC = () => {
 
 export default function App() {
   return (
-    <AppProvider>
-      <MainLayout />
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <MainLayout />
+      </AppProvider>
+    </ErrorBoundary>
   );
 }
