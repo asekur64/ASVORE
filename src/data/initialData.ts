@@ -17,7 +17,12 @@ export const INITIAL_SETTINGS: SiteSettings = {
   },
   deliveryInsideDhaka: 60,
   deliveryOutsideDhaka: 120,
+  deliveryInsideGaibandha: 50,
+  deliveryOutsideGaibandha: 120,
   freeDeliveryThreshold: 2500,
+  estimatedDeliveryDhaka: '24–48 Hours',
+  estimatedDeliveryOutside: '2–4 Business Days',
+  supportedCouriers: ['Steadfast Courier', 'Pathao Courier', 'RedX'],
   phone: '+8801815951971',
   email: 'asekurr60@gmail.com',
   whatsappNumber: '+8801815951971',
@@ -26,6 +31,25 @@ export const INITIAL_SETTINGS: SiteSettings = {
     bn: 'শাপলামিল, গাইবান্ধা সদর, গাইবান্ধা, বাংলাদেশ।',
   },
   facebookUrl: 'https://www.facebook.com/profile.php?id=61595394275864',
+  payments: {
+    cod: {
+      enabled: true,
+      instructions: 'Pay in cash upon delivery anywhere in Bangladesh.',
+    },
+    bkash: {
+      enabled: true,
+      merchantNumber: '+8801815951971',
+      appKeyConfigured: false,
+      sandboxMode: false,
+      instructions: 'Send payment via bKash and enter the Transaction ID for verification.',
+    },
+    nagad: {
+      enabled: true,
+      merchantNumber: '+8801815951971',
+      publicKeyConfigured: false,
+      instructions: 'Send payment via Nagad and enter the Transaction ID for verification.',
+    },
+  },
 };
 
 export const INITIAL_PRODUCTS: Product[] = [

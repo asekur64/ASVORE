@@ -71,6 +71,8 @@ interface AppContextType {
   logoutAdmin: () => void;
   isFirebaseStatusModalOpen: boolean;
   setIsFirebaseStatusModalOpen: (open: boolean) => void;
+  viewingInvoiceOrder: Order | null;
+  setViewingInvoiceOrder: (order: Order | null) => void;
 
   // Search & Catalog
   searchQuery: string;
@@ -216,11 +218,12 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     return safeStorageGet('asvore_admin_auth') === 'true';
   });
   const [isFirebaseStatusModalOpen, setIsFirebaseStatusModalOpen] = useState(false);
+  const [viewingInvoiceOrder, setViewingInvoiceOrder] = useState<Order | null>(null);
 
   // 4. Products (with automated image sync for demo items)
   const [products, setProducts] = useState<Product[]>(() => {
     try {
-      const saved = localStorage.getItem('asvore_products');
+      const saved = safeStorageGet('asvore_products');
       if (saved) {
         const parsed: Product[] = JSON.parse(saved);
         // Ensure demo products have the updated distinct category images
@@ -503,7 +506,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   // 11. Customer Account
   const [currentUser, setCurrentUser] = useState<UserAccount | null>(() => {
     try {
-      const saved = localStorage.getItem('asvore_user');
+      const saved = safeStorageGet('asvore_user');
       return saved ? JSON.parse(saved) : null;
     } catch {
       return null;
@@ -511,14 +514,18 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   });
 
   const loginUser = (phone: string, name?: string) => {
+    const resolvedName = name || 'Valued Gentleman';
     const user: UserAccount = {
       id: `usr-${phone.replace(/[^0-9]/g, '')}`,
       phone,
-      name: name || 'Valued Gentleman',
+      name: resolvedName,
       savedAddresses: [
         {
           id: 'addr-1',
           label: 'Primary Delivery Address',
+          isDefault: true,
+          recipientName: resolvedName,
+          phone,
           division: 'Dhaka',
           district: 'Dhaka',
           upazila: 'Gulshan',
@@ -631,7 +638,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   // 12. Reviews
   const [reviews, setReviews] = useState<CustomerReview[]>(() => {
     try {
-      const saved = localStorage.getItem('asvore_reviews');
+      const saved = safeStorageGet('asvore_reviews');
       return saved ? JSON.parse(saved) : INITIAL_REVIEWS;
     } catch {
       return INITIAL_REVIEWS;
@@ -716,6 +723,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         logoutAdmin,
         isFirebaseStatusModalOpen,
         setIsFirebaseStatusModalOpen,
+        viewingInvoiceOrder,
+        setViewingInvoiceOrder,
 
         searchQuery,
         setSearchQuery,
