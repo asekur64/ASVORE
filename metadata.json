@@ -1,0 +1,6 @@
+{
+  "name": "ASVORE - Premium Men's Fashion",
+  "description": "Affordable luxury men's fashion and lifestyle brand in Bangladesh. Style Beyond Ordinary.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
